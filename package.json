@@ -2,9 +2,13 @@
   "name": "usuarios",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "dist/app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node ./dist/app.js",
+    "tsc": "tsc",
+    "dev": "nodemon src/app.ts",
+    "build": "tsc -p",
+    "postinstall": "npm run build"
   },
   "repository": {
     "type": "git",
@@ -15,5 +19,19 @@
   "bugs": {
     "url": "https://github.com/jsrg270312/MEAN/issues"
   },
-  "homepage": "https://github.com/jsrg270312/MEAN#readme"
+  "homepage": "https://github.com/jsrg270312/MEAN#readme",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "bootstrap": "^4.3.1",
+    "express": "^4.17.1",
+    "socket.io": "^2.3.0"
+  },
+  "devDependencies": {
+    "@ng-bootstrap/ng-bootstrap": "^5.1.2",
+    "@types/express": "^4.17.2",
+    "@types/socket.io": "^2.1.4",
+    "nodemon": "^1.19.4",
+    "ts-node": "^8.4.1",
+    "typescript": "^3.7.2"
+  }
 }
