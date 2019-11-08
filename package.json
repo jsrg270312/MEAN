@@ -8,7 +8,7 @@
     "tsc": "tsc",
     "postinstall": "npm run build",
     "dev": "nodemon src/app.ts",
-    "build": "tsc -p"
+    "build": "tsc -p ."
   },
   "repository": {
     "type": "git",
