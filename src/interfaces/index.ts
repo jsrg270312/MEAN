@@ -1,7 +1,10 @@
 import Server from "./server"
-import Usuario from "./usuario"
+import {Usuario} from "./usuario"
+import {UsuarioResponse, Error} from "./responses"
 
 export { 
-    Server,
     Usuario,
+    Server,
+    UsuarioResponse,
+    Error
 }

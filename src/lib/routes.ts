@@ -1,8 +1,6 @@
 import { Server as Main } from "./../interfaces"
 import {Request, Response } from "express"
-import{ getUser, listUser, postUser, deleteUser, putUser } from "./controller"
-
-//falta el archivo de controller aqui
+import{ getUser, listUser, postUser, deleteUser, putUser } from "./controller" //importamos el archivo de controller
 
 export default class Routes{
 
