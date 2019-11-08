@@ -31,6 +31,7 @@ class Server {
     initDB() {
         new config_1.Connect("mongodb+srv://sebastianReyes:sebastianReyes@cluster0-dq7zr.mongodb.net/test?retryWrites=true&w=majority").connection();
     }
+
     appExecute() {
         this.appConfig();
         this.includeRoutes();
