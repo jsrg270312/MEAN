@@ -2,10 +2,11 @@ import express from "express"
 import bodyParser from "body-parser"
 import http from "http"
 import io from "socket.io"
+import cors from "cors"
 
 import {Server as Main } from "./interfaces/"
 import Routes from "./lib/routes"
-import {Connect} from "./config/"
+import Connect from "./config/db"
 
 const app = express()
 const server = new http.Server(app)
@@ -23,6 +24,7 @@ class Server {
     appConfig() {
         this.main.app.use(bodyParser.json())
         this.main.app.use(bodyParser.urlencoded({ extended : true}))
+        this.main.app.use(cors())
     }
     includeRoutes(){
         new Routes(this.main.app, this.main.socket).routesConfig()
