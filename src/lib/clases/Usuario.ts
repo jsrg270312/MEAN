@@ -2,6 +2,7 @@ import { Usuario as IUsuario } from "./../../interfaces/"
 import mongoose , {Types} from "mongoose"
 import {Users as MUsers} from "./../../models/"
 import { promises } from "fs"
+import bcrypt from "bcrypt"
 
 interface IUserInput {
   email: IUsuario["email"],
@@ -32,8 +33,13 @@ export default class Usuario {
       })
     }
 
-    Get(id?: Types.ObjectId) {
-      const criteria = (id) ? {_id: id}: {}
+    Get(id?: Types.ObjectId | string) {
+      const criteria = (id)
+                        ?(typeof id === "string") 
+                            ? {"email": id}
+                            : {"id": id}
+                        :{}
+      //const criteria = (id) ? {_id: id}: {}
       return MUsers.find(criteria)
       .then(u => (id && u.length < 1) ? {} : (id && u[0]._id) ? u[0] : u)
       .catch((e => e))
@@ -71,6 +77,21 @@ export default class Usuario {
       return MUsers.remove(criteria)
       .then(user => user)
       .catch(e => e)
+    }
+
+    //checkPassword(prev: String){
+     // return (bcrypt.compareSync(this.password, prev))  
+    //}
+
+    login(value: Types.ObjectId | string){
+      return this.Get(value)
+        .then((user:IUsuario) => {
+          console.log("Usuario es ", user)
+          if(user && user._id) {
+            return (bcrypt.compareSync(this.password, user.password))
+          }
+        })
+        .catch((error:Error[]) => console.log("Errores ", error))
     }
 
 }

@@ -1,6 +1,6 @@
 import { Server as Main } from "./../interfaces"
 import {Request, Response } from "express"
-import{ getUser, listUser, postUser, deleteUser, putUser } from "./controller" //importamos el archivo de controller
+import{ getUser, listUser, postUser, deleteUser, putUser, login } from "./controller" //importamos el archivo de controller
 
 export default class Routes{
 
@@ -12,6 +12,7 @@ export default class Routes{
         this.app.get("/v1/user/:id", getUser) //La funcion getUser no la va a reconocer hasta que se importe de controller las mismas
         this.app.get("/v1/user/", listUser)
         this.app.post("/v1/user/", postUser)
+        this.app.post("/v1/user/:id/login", login)
         this.app.put("/v1/user/:id", putUser)
         this.app.delete("/v1/user/:id", deleteUser)
     }
