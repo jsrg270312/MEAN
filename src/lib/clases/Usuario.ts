@@ -83,11 +83,13 @@ export default class Usuario {
      // return (bcrypt.compareSync(this.password, prev))  
     //}
 
-    login(value: Types.ObjectId | string){
+    Login(value: Types.ObjectId | string){
       return this.Get(value)
         .then((user:IUsuario) => {
           console.log("Usuario es ", user)
           if(user && user._id) {
+            console.log("aqu´ñiiii", (bcrypt.compareSync(this.password, user.password)));
+            
             return (bcrypt.compareSync(this.password, user.password))
           }
         })

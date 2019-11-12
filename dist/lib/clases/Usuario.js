@@ -1,6 +1,10 @@
 "use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 var models_1 = require("./../../models/");
+var bcrypt_1 = __importDefault(require("bcrypt"));
 var Usuario = /** @class */ (function () {
     //private body: IUsuario
     function Usuario(body) {
@@ -17,7 +21,12 @@ var Usuario = /** @class */ (function () {
         });
     };
     Usuario.prototype.Get = function (id) {
-        var criteria = (id) ? { _id: id } : {};
+        var criteria = (id)
+            ? (typeof id === "string")
+                ? { "email": id }
+                : { "id": id }
+            : {};
+        //const criteria = (id) ? {_id: id}: {}
         return models_1.Users.find(criteria)
             .then(function (u) { return (id && u.length < 1) ? {} : (id && u[0]._id) ? u[0] : u; })
             .catch((function (e) { return e; }));
@@ -55,6 +64,20 @@ var Usuario = /** @class */ (function () {
         return models_1.Users.remove(criteria)
             .then(function (user) { return user; })
             .catch(function (e) { return e; });
+    };
+    //checkPassword(prev: String){
+    // return (bcrypt.compareSync(this.password, prev))  
+    //}
+    Usuario.prototype.login = function (value) {
+        var _this = this;
+        return this.Get(value)
+            .then(function (user) {
+            console.log("Usuario es ", user);
+            if (user && user._id) {
+                return (bcrypt_1.default.compareSync(_this.password, user.password));
+            }
+        })
+            .catch(function (error) { return console.log("Errores ", error); });
     };
     return Usuario;
 }());

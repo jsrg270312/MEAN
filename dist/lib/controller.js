@@ -70,4 +70,11 @@ var deleteUser = function (req, res) {
         .catch(function (e) { return res.status(200).json({ code: 500, "message": e.errors }); });
 };
 exports.deleteUser = deleteUser;
+var login = function (req, res) {
+    var usuario = new clases_1.Usuario(req.body);
+    usuario.login(req.params.id)
+        .then(function (valid) { return res.status(200).json(valid); })
+        .catch(function (error) { return res.status(404).json(false); });
+};
+exports.login = login;
 //# sourceMappingURL=controller.js.map

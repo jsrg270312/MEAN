@@ -75,9 +75,11 @@ const deleteUser = (req: Request, res: Response): void => {
 const login = (req: Request, res: Response): void => {
     const usuario = new Usuario(req.body)
 
-    usuario.login(req.params.id)
-      .then(valid => res.status(200).json(valid))
-      .catch(error => res.status(404).json(false))
+    usuario.Login(req.params.id)
+      .then(valid => {
+        console.log("valid: ", valid)  
+        res.status(200).json({"validacion":valid})})
+      .catch(error => res.status(404).json({"validacion":false}))
 }
 
 export {
