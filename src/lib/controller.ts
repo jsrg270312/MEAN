@@ -76,10 +76,16 @@ const login = (req: Request, res: Response): void => {
     const usuario = new Usuario(req.body)
 
     usuario.Login(req.params.id)
-      .then(valid => {
-        console.log("valid: ", valid)  
-        res.status(200).json({"validacion":valid})})
-      .catch(error => res.status(404).json({"validacion":false}))
+      .then((user : any) => {
+        console.log("user: ", user)
+        const response = new R( user, req.method)
+        res.status(response.getStatusCode()).json(response.data())
+        })
+        .catch((e: any) => {
+            console.log("catch")
+            const response = new R(null, req.method, e)
+            res.status(response.getStatusCode()).json(response.data())
+        })
 }
 
 export {

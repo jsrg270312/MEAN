@@ -87,11 +87,9 @@ export default class Usuario {
       return this.Get(value)
         .then((user:IUsuario) => {
           console.log("Usuario es ", user)
-          if(user && user._id) {
-            console.log("aqu´ñiiii", (bcrypt.compareSync(this.password, user.password)));
-            
-            return (bcrypt.compareSync(this.password, user.password))
-          }
+          if(user && user._id && bcrypt.compareSync(this.password, user.password)) {
+            return user
+          }else return {}
         })
         .catch((error:Error[]) => console.log("Errores ", error))
     }
