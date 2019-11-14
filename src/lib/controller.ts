@@ -78,8 +78,10 @@ const login = (req: Request, res: Response): void => {
     usuario.Login(req.params.id)
       .then((user : any) => {
         
-        const response = new R( user, req.method)
-        res.status(response.getStatusCode()).json(response.data())
+        const response = new R( user.user, req.method)
+        let r: any = response.data()
+        r.token = user.token
+        res.status(response.getStatusCode()).json(r)
         })
         .catch((e: any) => {
             console.log("catch")

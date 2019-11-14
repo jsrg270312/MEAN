@@ -89,9 +89,11 @@ export default class Usuario {
       return this.Get(value)
         .then((user:IUsuario) => {
           if(user && user._id && bcrypt.compareSync(this.password, user.password)) {
-            user.token = this.generateJWT(user)
-            //console.log(user,"este es el add")
-            return user
+            console.log(typeof(user), "este es el typeof");
+            
+            //let newUser = user.toJSON()
+            const token= this.generateJWT(user)
+            return {user, token}
           
           }else return {}
         })
