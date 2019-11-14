@@ -3,6 +3,8 @@ import mongoose , {Types} from "mongoose"
 import {Users as MUsers} from "./../../models/"
 import { promises } from "fs"
 import bcrypt from "bcrypt"
+import jwt from "jsonwebtoken"
+import {variables} from "./../../config/index"
 
 interface IUserInput {
   email: IUsuario["email"],
@@ -86,12 +88,19 @@ export default class Usuario {
     Login(value: Types.ObjectId | string){
       return this.Get(value)
         .then((user:IUsuario) => {
-          console.log("Usuario es ", user)
           if(user && user._id && bcrypt.compareSync(this.password, user.password)) {
+            user.token = this.generateJWT(user)
+            //console.log(user,"este es el add")
             return user
+          
           }else return {}
         })
         .catch((error:Error[]) => console.log("Errores ", error))
+    }
+
+    generateJWT(user: IUsuario){
+      const token = jwt.sign({user : user}, variables.secretKey, {expiresIn: 600000})
+      return token
     }
 
 }

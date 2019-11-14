@@ -8,6 +8,7 @@ interface Usuario  extends Document {
     active: boolean;
     createdAt: number;
     updatedAt: number;
+    token?: any;
 }
 export{
     Usuario

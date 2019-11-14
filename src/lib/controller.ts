@@ -77,7 +77,7 @@ const login = (req: Request, res: Response): void => {
 
     usuario.Login(req.params.id)
       .then((user : any) => {
-        console.log("user: ", user)
+        
         const response = new R( user, req.method)
         res.status(response.getStatusCode()).json(response.data())
         })
